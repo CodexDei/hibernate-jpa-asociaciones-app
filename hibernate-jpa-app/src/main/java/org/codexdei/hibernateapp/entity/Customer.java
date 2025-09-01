@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 //relaciona esta clase con la table en la DB o BD
 @Entity
@@ -29,17 +31,26 @@ public class Customer {
     @Embedded
     private Audit audit = new Audit();
 
+    //cascadeType.ALL indica que todas las operaciones de la entidad padre se propagan en la hija
+    //orphanRemoval = true significa que si el padre se elimina se elimina la direccion
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Addresses> addresses;
+
     //siempre que se usa entity y se tenga un constructor con parametros se
     // tiene que implementar un constructor vacio, sino al crear un objeto tipo Cliente lanara un error
     public Customer() {
+
+        addresses = new ArrayList<>();
     }
 
     public Customer(String name, String lastName){
+        this();
         this.name = name;
         this.lastName = lastName;
     }
 
     public Customer(Long id, String name, String lastName, String paymentMethod) {
+        this();
         this.id = id;
         this.name = name;
         this.lastName = lastName;
@@ -74,6 +85,14 @@ public class Customer {
         return paymentMethod;
     }
 
+    public List<Addresses> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<Addresses> addresses) {
+        this.addresses = addresses;
+    }
+
     public void setPaymentMethod(String paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
@@ -84,11 +103,15 @@ public class Customer {
         LocalDateTime created = this.audit != null ? audit.getCreatedIn() : null;
         LocalDateTime edited = this.audit != null ? audit.getEditedIn() : null;
 
-        return  "idCustomer=" + id +
+        return  "{" +
+                "idCustomer=" + id +
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", payment_method=" + paymentMethod +
                 ", cretedIn='" + created + '\'' +
-                ", editedIn='" + edited + '\'';
+                ", editedIn='" + edited + '\'' +
+                ", addresses='" + addresses + '\'' +
+                '}';
+
     }
 }
