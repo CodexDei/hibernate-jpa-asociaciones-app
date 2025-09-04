@@ -69,7 +69,6 @@ public class Invoice {
                 "id=" + id +
                 ", description='" + description + '\'' +
                 ", total=" + total +
-                ", customer=" + customer +
                 '}';
     }
 }

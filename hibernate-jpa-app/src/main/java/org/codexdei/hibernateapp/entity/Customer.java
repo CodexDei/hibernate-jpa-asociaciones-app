@@ -34,12 +34,22 @@ public class Customer {
     //cascadeType.ALL indica que todas las operaciones de la entidad padre se propagan en la hija
     //orphanRemoval = true significa que si el padre se elimina se elimina la direccion
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    //@JoinColumn(name = "id_cliente")
+    //Tabla intermedia personalizada
+    @JoinTable(name = "tbl_clientes_direcciones", joinColumns = @JoinColumn(name = "id_cliente"),
+    inverseJoinColumns = @JoinColumn(name = "id_direccion"),
+    uniqueConstraints = @UniqueConstraint(columnNames = {"id_direccion"})
+    )
     private List<Addresses> addresses;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "customer")
+    private List<Invoice> invoices;
 
     //siempre que se usa entity y se tenga un constructor con parametros se
     // tiene que implementar un constructor vacio, sino al crear un objeto tipo Cliente lanara un error
     public Customer() {
 
+        invoices = new ArrayList<>();
         addresses = new ArrayList<>();
     }
 
@@ -97,6 +107,30 @@ public class Customer {
         this.paymentMethod = paymentMethod;
     }
 
+    public Audit getAudit() {
+        return audit;
+    }
+
+    public void setAudit(Audit audit) {
+        this.audit = audit;
+    }
+
+    public List<Invoice> getInvoices() {
+        return invoices;
+    }
+
+    public void setInvoices(List<Invoice> invoices) {
+        this.invoices = invoices;
+    }
+
+    public Customer addInvoice(Invoice invoice){
+
+        this.invoices.add(invoice);
+        invoice.setCustomer(this);
+        return this;
+    }
+
+
     @Override
     public String toString() {
 
@@ -111,6 +145,7 @@ public class Customer {
                 ", cretedIn='" + created + '\'' +
                 ", editedIn='" + edited + '\'' +
                 ", addresses='" + addresses + '\'' +
+                ", Invoices='" + invoices + '\'' +
                 '}';
 
     }

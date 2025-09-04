@@ -4,6 +4,7 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <class>org.codexdei.hibernateapp.entity.Customer</class>
         <class>org.codexdei.hibernateapp.entity.Invoice</class>
+        <class>org.codexdei.hibernateapp.entity.Addresses</class>
 <!--        solo las clases que esten mapeadas, si quitamos la linea anterior marcaria error-->
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
