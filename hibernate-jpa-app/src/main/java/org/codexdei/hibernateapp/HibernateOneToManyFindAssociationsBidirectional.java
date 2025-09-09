@@ -36,6 +36,18 @@ public class HibernateOneToManyFindAssociationsBidirectional {
 
             System.out.println(customer);
 
+            //Removemos la factura
+            //como es una nueva transaccoin se necesita otro begin y commit
+            em.getTransaction().begin();
+            //Invoice i3 = em.find(Invoice.class,2L);
+            //se puede hacer sin usar em.find(), para ello invoice debe tener el metodo equals
+            Invoice i3 = new Invoice("Supermarket shopping",500L);
+            i3.setId(2L);
+            customer.removeInvoice(i3);
+            em.getTransaction().commit();
+
+            System.out.println(customer);
+
         }catch (Exception e){
             em.getTransaction().rollback();
             e.printStackTrace();

@@ -45,6 +45,19 @@ public class Customer {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "customer")
     private List<Invoice> invoices;
 
+    //al contener el OneToOne hace que esta clase sea el dueño de la relacion o asociacion
+    //por tanto el que tiene la fk o llave foranea
+    //CascadeType.ALL => cualquier operacion sobre el padre se aplicara sobre la entidad asociada
+    //orphanRemoval = true => si se quita la relacion, en objeto asociado se borra porque quedo huerfano
+    //mappedBy = inmediatamente indica que esta entidad no es el dueño de la relacion, por lo cual la FK esta
+    //en la otra entidad
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "customer")
+    //el que tiene el @JoinColumn(name = "cliente_detalles_id") es el dueño de la relacion, por ello fue
+    // coemntado y solo dejado para explicar, en @JoinColumn(name = "cliente_detalles_id") esta activo
+    //en la otra entidad, la cual es dueña de la relacion
+//    @JoinColumn(name = "cliente_detalles_id")
+    CustomerDetail detail;
+
     //siempre que se usa entity y se tenga un constructor con parametros se
     // tiene que implementar un constructor vacio, sino al crear un objeto tipo Cliente lanara un error
     public Customer() {
@@ -123,12 +136,31 @@ public class Customer {
         this.invoices = invoices;
     }
 
+    public CustomerDetail getDetail() {
+        return detail;
+    }
+
+    public void setDetail(CustomerDetail detail) {
+        this.detail = detail;
+    }
+
+    public void addDetail(CustomerDetail detail) {
+        this.detail = detail;
+        detail.setCustomer(this);
+    }
+
+    public void removeDetail(CustomerDetail detail) {
+        detail.setCustomer(null);
+        this.detail = null;
+    }
+
     public Customer addInvoice(Invoice invoice){
 
         this.invoices.add(invoice);
         invoice.setCustomer(this);
         return this;
     }
+
 
 
     @Override
@@ -146,7 +178,17 @@ public class Customer {
                 ", editedIn='" + edited + '\'' +
                 ", addresses='" + addresses + '\'' +
                 ", Invoices='" + invoices + '\'' +
+                ", Details='" + detail + '\'' +
                 '}';
 
+    }
+
+
+    public Customer removeInvoice(Invoice invoice) {
+
+        this.invoices.remove(invoice);
+        invoice.setCustomer(null);
+
+        return this;
     }
 }
