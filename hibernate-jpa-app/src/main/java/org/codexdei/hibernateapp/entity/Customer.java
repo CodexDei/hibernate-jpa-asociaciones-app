@@ -2,7 +2,6 @@ package org.codexdei.hibernateapp.entity;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +39,11 @@ public class Customer {
     inverseJoinColumns = @JoinColumn(name = "id_direccion"),
     uniqueConstraints = @UniqueConstraint(columnNames = {"id_direccion"})
     )
-    private List<Addresses> addresses;
+    //Si cambiamos el List a Set nos permitira hacer busqueda de varios bags en una consulta join y no mostrar el error:MultipleBagFetchException
+    //se tendria que cambiar todo lo que diga List en Set, sino muestra error, pero
+    //No es recomendable hacer esto, ya que aunque se ejecute sin error, afecta el rendimiento, entre mas grande la DB o BD(base de datos) mas lento se hace
+    //Lo mejor es hacer crear varios consultas
+    private List<Address> addresses;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "customer")
     private List<Invoice> invoices;
@@ -108,11 +111,11 @@ public class Customer {
         return paymentMethod;
     }
 
-    public List<Addresses> getAddresses() {
+    public List<Address> getAddresses() {
         return addresses;
     }
 
-    public void setAddresses(List<Addresses> addresses) {
+    public void setAddresses(List<Address> addresses) {
         this.addresses = addresses;
     }
 

@@ -1,7 +1,7 @@
 package org.codexdei.hibernateapp;
 
 import jakarta.persistence.EntityManager;
-import org.codexdei.hibernateapp.entity.Addresses;
+import org.codexdei.hibernateapp.entity.Address;
 import org.codexdei.hibernateapp.entity.Customer;
 import org.codexdei.hibernateapp.util.JpaUtil;
 
@@ -16,11 +16,11 @@ public class HibernateOneToManyFindAssociations {
             em.getTransaction().begin();
             Customer customer = em.find(Customer.class, 2L);
 
-            Addresses addresses1 = new Addresses("Street caracas", 30);
-            Addresses addresses2 = new Addresses("Avenue Jimenez", 13);
+            Address address1 = new Address("Street caracas", 30);
+            Address address2 = new Address("Avenue Jimenez", 13);
 
-            customer.getAddresses().add(addresses1);
-            customer.getAddresses().add(addresses2);
+            customer.getAddresses().add(address1);
+            customer.getAddresses().add(address2);
 
             em.merge(customer);
 
@@ -30,8 +30,8 @@ public class HibernateOneToManyFindAssociations {
 
             //nueva transaccion, por tanto otro begin y otro commit
             em.getTransaction().begin();
-            addresses1 = em.find(Addresses.class,1L);
-            customer.getAddresses().remove(addresses1);
+            address1 = em.find(Address.class,1L);
+            customer.getAddresses().remove(address1);
             em.getTransaction().commit();
 
             System.out.println(customer);

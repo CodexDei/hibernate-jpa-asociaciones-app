@@ -1,7 +1,7 @@
 package org.codexdei.hibernateapp;
 
 import jakarta.persistence.EntityManager;
-import org.codexdei.hibernateapp.entity.Addresses;
+import org.codexdei.hibernateapp.entity.Address;
 import org.codexdei.hibernateapp.entity.Customer;
 import org.codexdei.hibernateapp.util.JpaUtil;
 
@@ -17,11 +17,11 @@ public class HibernateOneToManyAssociations {
             Customer customer = new Customer("Cata", "Friend");
             customer.setPaymentMethod("Nequi");
 
-            Addresses addresses1 = new Addresses("Street caracas", 30);
-            Addresses addresses2 = new Addresses("Avenue Jimenez", 13);
+            Address address1 = new Address("Street caracas", 30);
+            Address address2 = new Address("Avenue Jimenez", 13);
 
-            customer.getAddresses().add(addresses1);
-            customer.getAddresses().add(addresses2);
+            customer.getAddresses().add(address1);
+            customer.getAddresses().add(address2);
 
             em.persist(customer);
 
@@ -32,7 +32,7 @@ public class HibernateOneToManyAssociations {
             //Como se trata de nueva transaccion, se coloca de nuevo begin y commit
             em.getTransaction().begin();
             customer = em.find(Customer.class, customer.getId());
-            customer.getAddresses().remove(addresses1);
+            customer.getAddresses().remove(address1);
             em.getTransaction().commit();
 
             System.out.println(customer);

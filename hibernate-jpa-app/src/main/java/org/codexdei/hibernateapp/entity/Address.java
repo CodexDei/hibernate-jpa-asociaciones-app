@@ -2,10 +2,9 @@ package org.codexdei.hibernateapp.entity;
 
 import jakarta.persistence.*;
 
-import javax.annotation.processing.Generated;
-
 @Entity
-public class Addresses {
+@Table(name = "direcciones")
+public class Address {
 
     //Atributos
     @Id
@@ -19,9 +18,9 @@ public class Addresses {
     private Integer number;
 
     //constructores
-    public Addresses(){}
+    public Address(){}
 
-    public Addresses(String street, Integer number) {
+    public Address(String street, Integer number) {
         this.street = street;
         this.number = number;
     }

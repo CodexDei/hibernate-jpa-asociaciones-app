@@ -4,7 +4,7 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <class>org.codexdei.hibernateapp.entity.Customer</class>
         <class>org.codexdei.hibernateapp.entity.Invoice</class>
-        <class>org.codexdei.hibernateapp.entity.Addresses</class>
+        <class>org.codexdei.hibernateapp.entity.Address</class>
         <class>org.codexdei.hibernateapp.entity.CustomerDetail</class>
         <class>org.codexdei.hibernateapp.entity.Course</class>
         <class>org.codexdei.hibernateapp.entity.Student</class>

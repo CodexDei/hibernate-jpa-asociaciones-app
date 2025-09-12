@@ -1,3 +1,10 @@
 INSERT INTO clientes (id, nombre, apellido, forma_pago, creado_en, editado_en) VALUES (1,'Luis','Castillo','credito',NULL,NULL),(2,'Maye','Hortua','credito',NULL,NULL),(3,'Samy','Sion','debito',NULL,NULL),(4,'Jeysson','Oyola','debito',NULL,NULL),(5,'Johana','Cardenas','paypal',NULL,NULL),(6,'Melvin','Cayama','paypal',NULL,NULL),(7,'Andrea','Castillo','nequi',NULL,NULL),(8,'Pepe','Ganga','debito',NULL,NULL),(9,'Robinson','Saboya','nequi',NULL,NULL),(10,'Dixon','Oyola','nequi',NULL,NULL),(11,'Luis','Suarez','credito',NULL,'2025-08-28 13:14:41'),(12,'Luz','Pastrana','nequi',NULL,NULL),(13,'William','Romero','debito','2025-08-28 00:00:00','2025-08-28 00:00:00'),(14,'Dario','Castillo','paypal','2025-08-28 16:07:38',NULL);
 INSERT INTO estudiantes (id, nombre, apellido) VALUES (1, 'Goku', 'Sayayin'), (2, 'Naruto', 'Uzumaki'), (3,'Saitama', 'Kaiko');
 INSERT INTO cursos (id, titulo, profesor) VALUES  (1, 'Matematicas', 'George'), (2,'Educacion_Fisica', 'Marye'), (3,'Ciencias','Samy'), (4, 'Historia', 'Melvin'), (5,'Calculo', 'Jeysson'), (6, 'Geografia', 'Robinson');
+INSERT INTO direcciones (calle, numero) VALUES ('Sion', 123);
+INSERT INTO direcciones (calle, numero) VALUES ('Terra', 456);
+INSERT INTO tbl_clientes_direcciones (id_cliente, id_direccion) VALUES (1,1);
+INSERT INTO tbl_clientes_direcciones (id_cliente, id_direccion) VALUES (1,2);
+INSERT INTO cliente_detalles (prime, puntos_acumulados, cliente_detalles_id) VALUES (1,8000,1)
+INSERT INTO tbl_estudiantes_cursos (estudiante_id, curso_id) VALUES (1,1);
+INSERT INTO tbl_estudiantes_cursos (estudiante_id, curso_id) VALUES (1,2);
